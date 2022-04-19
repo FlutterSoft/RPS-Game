@@ -7,10 +7,72 @@
   box-sizing: border-box;
 }
 
+
+/******************************************
+/* COLOURS
+/*******************************************/
+
+:root {
+  --blue: #25CED1;
+  --white: #FFFFFF;
+  --cream: #FCEADE;
+  --orange: #FF8A5B;
+  --red: #EA526F;
+}
+
+
 /******************************************
 /* LAYOUT
 /*******************************************/
 
+html {
+  font-size: 62.5%;
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  display: grid;
+  place-items: center;
+  margin: auto auto;
+  text-align: center;
+  font-size: 2.6rem;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--orange);
+  color: rgb(30, 18, 17)
+}
+.game-container {
+  background-color: grey;
+  width: 60%;
+  min-width: 400px;
+  max-width: 900px;
+  padding: 32px;
+  background-color: var(--cream);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.281);
+
+}
+
+.action-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 64px;
+}
+.hand-container {
+
+}
+.hand {
+  font-size: 120px;
+  cursor: pointer;
+  color: 
+}
+
+h4 {
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+span {
+  font-weight: 700;
+}
 
 
 /******************************************
