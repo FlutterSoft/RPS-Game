@@ -19,3 +19,160 @@ features:
     add to tally counter, make winner flash green and loser flash red? 
 
 */
+
+function player() {
+    this.score = 0,
+    this.hand = 'rock'
+}
+
+const human = new player()
+const computer = new player()
+
+const humanHand = document.querySelector('#humanHand')
+const computerHand = document.querySelector('#computerHand')
+const humanWins = document.querySelector('#humanWins')
+const computerWins = document.querySelector('#computerWins')
+
+let humanSelection
+
+const handSelectors = document.querySelectorAll('.handSelector')
+handSelectors.forEach( (hand) => {
+    hand.addEventListener('click', function() {
+        human.hand = this.id
+        playGame()
+    })
+})
+
+function playGame(){
+    clearHand(humanHand)
+    clearHand(computerHand)
+    randomHand()
+    animateShake()
+    blockInput()
+    setTimeout(function(){
+        showComputerHand()
+        showPlayerHand()
+        hideShake()
+        let winner = checkWinner()
+        updateUI(winner) 
+        resetGame()
+    }, 3000);
+
+}
+
+// clear hand currently displayed
+function clearHand(whosHand){
+    whosHand.classList.remove('fa-hand-back-fist','fa-hand', 'fa-hand-scissors' )
+}
+
+// displayers player selection on screen
+function showPlayerHand(){
+    if (human.hand == 'rock'){
+        humanHand.classList.add('fa-hand-back-fist')
+    }
+    else if (human.hand == 'paper'){
+        humanHand.classList.add('fa-hand')       
+    }
+    else if (human.hand == 'scissors'){
+        humanHand.classList.add('fa-hand-scissors')
+    } 
+    humanHand.classList.remove('hidden')
+
+}
+
+// shows the computers selection
+function showComputerHand(){
+    if (computer.hand == 'rock'){
+        computerHand.classList.add('fa-hand-back-fist')
+    }
+    else if (computer.hand == 'paper'){
+        computerHand.classList.add('fa-hand')       
+    }
+    else if (computer.hand == 'scissors'){
+        computerHand.classList.add('fa-hand-scissors')
+    } 
+    computerHand.classList.remove('hidden')
+}
+
+const shakers = document.querySelectorAll('.handShaker')
+
+// starts animation on fist shake
+function animateShake(){
+    shakers.forEach( hand => {
+        hand.classList.remove('hidden')
+        hand.classList.add('shake')
+    })
+}
+
+// hides fist shaker
+function hideShake(){
+    shakers.forEach( hand => {
+        hand.classList.remove('shake')
+        hand.classList.add('hidden')
+    })  
+}
+// generates random hand for computer
+function randomHand(){
+    let random = Math.floor(Math.random() * 3)
+    if (random == 0){
+        computer.hand = 'rock'
+    }
+    else if (random == 1){
+        computer.hand = 'paper'
+    }
+    else {
+        computer.hand = 'scissors'
+    }
+}
+
+function checkWinner(){
+    let winner
+    if(human.hand == computer.hand){
+        winner = 'draw' // draw
+    }
+    else if ( 
+        (human.hand == 'rock' && computer.hand == 'scissors') || 
+        (human.hand == 'paper' && computer.hand == 'rock') || 
+        (human.hand == 'scissors' && computer.hand == 'paper') ){ // player wins
+
+        winner = 'player'
+        human.score++
+    }
+    else { // player loses
+        winner = 'computer'
+        computer.score++
+    }
+    return winner
+}
+
+
+// updates the scoreboard, changes winner to green and loser to red
+
+function updateUI(winner){
+    humanWins.innerText = human.score
+    computerWins.innerText = computer.score
+    if (winner == 'human'){
+        humanHand.classList.add('winner')
+        computerHand.classList.add('loser')
+    }
+    else if (winner == 'computer'){
+        humanHand.classList.add('loser')
+        computerHand.classList.add('winner')
+    }
+}
+
+
+// not working properly, only works once
+function resetGame(){ 
+    setTimeout(function(){
+        humanHand.classList.remove('winner', 'loser')
+        computerHand.classList.remove('winner', 'loser')
+        clearHand(humanHand)
+        clearHand(computerHand)
+    }, 4500);
+}
+
+
+function blockInput(){
+    // blocks user from doing anything
+}

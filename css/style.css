@@ -18,6 +18,8 @@
   --cream: #FCEADE;
   --orange: #FF8A5B;
   --red: #EA526F;
+  --green: #EA526F;
+
 }
 
 
@@ -45,24 +47,36 @@ body {
   width: 60%;
   min-width: 400px;
   max-width: 900px;
+  /* height: 6%; */
   padding: 32px;
   background-color: var(--cream);
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.281);
+  
 
 }
 
 .action-container {
   display: flex;
   justify-content: space-around;
-  margin: 64px;
+  padding: 0px 32px;
+  margin: 64px auto;
+  height: 128px;
+  
 }
-.hand-container {
+.hands-container {
+  /* background-color: blue; */
+  width: 400px;
+  margin: 0 auto;
+  user-select: none;
+}
 
-}
 .hand {
   font-size: 120px;
   cursor: pointer;
-  color: 
+}
+
+.handSelector:active{
+  transform: scale(98%)
 }
 
 h4 {
@@ -75,6 +89,32 @@ span {
 }
 
 
+.shake {
+  animation: shake 1s;
+  animation-iteration-count: 3;
+}
+
+.hidden {
+  display: none !important ;
+}
+
+.winner {
+  color: var(--blue);
+}
+.loser {
+  color: var(--red);
+}
+
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+@keyframes shake {
+  0% {
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  100% {
+    -webkit-transform: scale(0.8, 0.8);
+            transform: scale(0.8, 0.8);
+  }
+}

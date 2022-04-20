@@ -19,19 +19,21 @@
 		<section class="game-container">
 			<h1>Rock Paper Scissors!</h1>
 			<h4>Results</h4>
-				<span id="playerWins">5</span>
+				<span id="humanWins">0</span>
 				<span>:</span>
-				<span id="computerWins">2</span>
+				<span id="computerWins">0</span>
 			
 			<div class="action-container">
-				<i class="hand fa-regular fa-hand-back-fist"></i>
-				<i class="hand fa-regular fa-hand"></i>
+				<i id="humanHand" class="hidden hand fa-regular"></i>
+				<i class="handShaker hidden hand fa-regular fa-hand-back-fist "></i>
+				<i class="handShaker hidden hand fa-regular fa-hand-back-fist "></i>
+				<i id="computerHand" class="hidden hand fa-regular "></i>
 			</div>
 
 			<div class="hands-container">
-				<i class="hand fa-regular fa-hand-back-fist"></i>
-				<i class="hand fa-regular fa-hand"></i>
-				<i class="hand fa-regular fa-hand-scissors"></i>
+				<i id="rock" class="hand handSelector fa-regular fa-hand-back-fist"></i>
+				<i id="paper" class="hand handSelector fa-regular fa-hand"></i>
+				<i id="scissors" class="hand handSelector fa-regular fa-hand-scissors"></i>
 			</div>
 
 		</section>
