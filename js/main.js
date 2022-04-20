@@ -43,26 +43,11 @@ handSelectors.forEach( (hand) => {
     })
 })
 
-function playGame(){
-    clearHand(humanHand)
-    clearHand(computerHand)
-    randomHand()
-    animateShake()
-    blockInput()
-    setTimeout(function(){
-        showComputerHand()
-        showPlayerHand()
-        hideShake()
-        let winner = checkWinner()
-        updateUI(winner) 
-        resetGame()
-    }, 3000);
-
-}
-
 // clear hand currently displayed
 function clearHand(whosHand){
+    setTimeout(function(){
     whosHand.classList.remove('fa-hand-back-fist','fa-hand', 'fa-hand-scissors' )
+    }, 0);
 }
 
 // displayers player selection on screen
@@ -77,7 +62,6 @@ function showPlayerHand(){
         humanHand.classList.add('fa-hand-scissors')
     } 
     humanHand.classList.remove('hidden')
-
 }
 
 // shows the computers selection
@@ -98,6 +82,7 @@ const shakers = document.querySelectorAll('.handShaker')
 
 // starts animation on fist shake
 function animateShake(){
+    gameSound.play();
     shakers.forEach( hand => {
         hand.classList.remove('hidden')
         hand.classList.add('shake')
@@ -135,7 +120,7 @@ function checkWinner(){
         (human.hand == 'paper' && computer.hand == 'rock') || 
         (human.hand == 'scissors' && computer.hand == 'paper') ){ // player wins
 
-        winner = 'player'
+        winner = 'human'
         human.score++
     }
     else { // player loses
@@ -147,10 +132,10 @@ function checkWinner(){
 
 
 // updates the scoreboard, changes winner to green and loser to red
-
 function updateUI(winner){
     humanWins.innerText = human.score
     computerWins.innerText = computer.score
+
     if (winner == 'human'){
         humanHand.classList.add('winner')
         computerHand.classList.add('loser')
@@ -161,18 +146,65 @@ function updateUI(winner){
     }
 }
 
-
 // not working properly, only works once
 function resetGame(){ 
     setTimeout(function(){
         humanHand.classList.remove('winner', 'loser')
         computerHand.classList.remove('winner', 'loser')
-        clearHand(humanHand)
-        clearHand(computerHand)
+        // clearHand(humanHand)
+        // clearHand(computerHand)
     }, 4500);
 }
 
-
 function blockInput(){
-    // blocks user from doing anything
+    // blocks user from doing anything until after round completed
+    handSelectors.forEach( (hand) => {
+        hand.classList.add('disabled')
+        setTimeout(()=>{
+            hand.classList.remove('disabled')
+        }, 5000)
+    })
+}
+
+// sound for shaker
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.load = function(){
+        this.sound.load();
+    }
+
+  }
+
+const gameSound = new sound('./assets/rpssfx.mp3')
+
+
+function playGame(){
+    gameSound.load()
+    clearHand(humanHand)
+    clearHand(computerHand)
+    randomHand()
+    animateShake()
+    blockInput()
+    let playGameTimeOut = setTimeout(function(){
+        showComputerHand()
+        showPlayerHand()
+        hideShake()
+        updateUI(checkWinner()) 
+        let resetTimeOut = setTimeout(function(){
+            humanHand.classList.remove('winner', 'loser')
+            computerHand.classList.remove('winner', 'loser')
+            clearHand(humanHand)
+            clearHand(computerHand)
+            clearTimeout(resetTimeOut)
+            clearTimeout(playGameTimeOut)
+        }, 2500);
+    }, 3000);
 }

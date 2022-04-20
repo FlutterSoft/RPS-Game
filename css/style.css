@@ -24,7 +24,7 @@
 
 
 /******************************************
-/* LAYOUT
+/* STYLING
 /*******************************************/
 
 html {
@@ -44,7 +44,7 @@ body {
 }
 .game-container {
   background-color: grey;
-  width: 60%;
+  width: 100%;
   min-width: 400px;
   max-width: 900px;
   /* height: 6%; */
@@ -61,6 +61,7 @@ body {
   padding: 0px 32px;
   margin: 64px auto;
   height: 128px;
+  width: 100%;
   
 }
 .hands-container {
@@ -105,8 +106,12 @@ span {
   color: var(--red);
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 /******************************************
-/* ADDITIONAL STYLES
+/* ANIMATION
 /*******************************************/
 @keyframes shake {
   0% {
